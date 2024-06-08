@@ -8,10 +8,16 @@ import {
 } from "../../../const/addresses";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
+import { ZksyncSepoliaTestnet } from "@thirdweb-dev/chains";
 
 type Props = {
     nft: NFT;
     contractMetadata: any;
+};
+
+type NFTAttribute = {
+    trait_type: string;
+    value: string | number;
 };
 
 export default function TokenPage({ nft, contractMetadata }: Props) {
@@ -103,12 +109,16 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
                         <Text fontWeight={"bold"}>Traits:</Text>
                         <SimpleGrid columns={2} spacing={4}>
                         {Object.entries(nft?.metadata?.attributes || {}).map(
-                        ([key, value]) => (
-                            <Flex key={key} direction={"column"} alignItems={"center"} justifyContent={"center"} borderWidth={1} p={"8px"} borderRadius={"4px"}>
-                                <Text fontSize={"small"}>{value.trait_type}</Text>
-                                <Text fontSize={"small"} fontWeight={"bold"}>{value.value}</Text>
-                            </Flex>
-                        )
+                        ([key, value]) => {
+                            const attribute = value as NFTAttribute;
+                            return (
+                                <Flex key={key} direction={"column"} alignItems={"center"} justifyContent={"center"} borderWidth={1} p={"8px"} borderRadius={"4px"}>
+                                    <Text fontSize={"small"}>{attribute.trait_type}</Text>
+                                    <Text fontSize={"small"} fontWeight={"bold"}>{attribute.value}</Text>
+                                </Flex>
+                            );
+                        }
+                            
                         )}
                         </SimpleGrid>
                     </Box>
@@ -204,7 +214,7 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
 export const getStaticProps: GetStaticProps = async (context) => {
     const tokenId = context.params?.tokenId as string;
   
-    const sdk = new ThirdwebSDK("mumbai");
+    const sdk = new ThirdwebSDK(ZksyncSepoliaTestnet);
   
     const contract = await sdk.getContract(NFT_COLLECTION_ADDRESS);
   
@@ -226,7 +236,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 
   export const getStaticPaths: GetStaticPaths = async () => {
-    const sdk = new ThirdwebSDK("mumbai");
+    const sdk = new ThirdwebSDK(ZksyncSepoliaTestnet);
   
     const contract = await sdk.getContract(NFT_COLLECTION_ADDRESS);
   
