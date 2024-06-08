@@ -1,23 +1,23 @@
 ## Getting Started
 
-Create a project using this example:
+To get started with this project, follow these steps:
 
-```bash
-npx thirdweb create --template next-typescript-starter
-```
+1. **Install Node.js:**
+   - Download and install [Node.js](https://nodejs.org/) from the official website.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. **Install Dependencies:**
+   - Open your terminal or command prompt.
+   - Navigate to the project directory.
+   - Run the following command to install project dependencies:
+     ```bash
+     npm install
+     ```
 
-On `pages/_app.tsx`, you'll find our `ThirdwebProvider` wrapping your app, this is necessary for our [hooks](https://portal.thirdweb.com/react) and
-[UI Components](https://portal.thirdweb.com/ui-components) to work.
-
-### Deploy to IPFS
-
-Deploy a copy of your application to IPFS using the following command:
-
-```bash
-yarn deploy
-```
+3. **Run the Development Server:**
+   - To start:
+     ```bash
+     npm run dev
+     ```
 
 ## Learn More
 
